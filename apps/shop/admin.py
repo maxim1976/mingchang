@@ -40,16 +40,22 @@ class ProductImageInline(admin.TabularInline):
     """Inline admin for ProductImage."""
     model = ProductImage
     extra = 1
-    fields = ['image', 'alt_text_zh', 'alt_text_en', 'display_order', 'is_primary']
+    fields = ['image', 'image_preview', 'alt_text_zh', 'alt_text_en', 'display_order', 'is_primary']
     readonly_fields = ['image_preview']
     
     def image_preview(self, obj):
         """Display thumbnail preview of image."""
         if obj.image:
-            return format_html(
-                '<img src="{}" style="max-width: 100px; max-height: 100px;" />',
-                obj.thumbnail.url
-            )
+            try:
+                from django.core.files.storage import default_storage
+                if default_storage.exists(obj.image.name):
+                    return format_html(
+                        '<img src="{}" style="max-width: 100px; max-height: 100px;" />',
+                        obj.thumbnail.url
+                    )
+            except Exception:
+                pass
+            return format_html('<span style="color: red;">Missing</span>')
         return "No image"
     image_preview.short_description = 'Preview'
 
@@ -126,10 +132,17 @@ class ProductImageAdmin(admin.ModelAdmin):
     def image_preview(self, obj):
         """Display thumbnail preview of image."""
         if obj.image:
-            return format_html(
-                '<img src="{}" style="max-width: 200px; max-height: 200px;" />',
-                obj.medium.url if obj.medium else obj.image.url
-            )
+            try:
+                from django.core.files.storage import default_storage
+                if default_storage.exists(obj.image.name):
+                    url = obj.medium.url if obj.medium else obj.image.url
+                    return format_html(
+                        '<img src="{}" style="max-width: 200px; max-height: 200px;" />',
+                        url
+                    )
+            except Exception:
+                pass
+            return format_html('<span style="color: red;">Missing file: {}</span>', obj.image.name)
         return "No image"
     image_preview.short_description = 'Preview'
 
