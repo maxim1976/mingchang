@@ -4,19 +4,25 @@ Production settings for Railway deployment
 
 from .base import *
 import dj_database_url
+from django.core.exceptions import ImproperlyConfigured
 
 DEBUG = env('DEBUG', default=False)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['mingchang-meat.railway.app'])
 
 # Database - PostgreSQL on Railway
-DATABASES = {
-    'default': dj_database_url.config(
-        default=env('DATABASE_URL'),
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
-}
+import os
+database_url = os.environ.get('DATABASE_URL')
+if database_url:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=database_url,
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
+    }
+else:
+    raise ImproperlyConfigured('DATABASE_URL environment variable is required for production')
 
 # Security settings
 SECURE_SSL_REDIRECT = env('SECURE_SSL_REDIRECT', default=True)
