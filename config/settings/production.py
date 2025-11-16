@@ -8,7 +8,13 @@ from django.core.exceptions import ImproperlyConfigured
 
 DEBUG = env('DEBUG', default=False)
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['mingchang-meat.railway.app'])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['mingchang-meat.railway.app', 'mingchang-production.up.railway.app'])
+
+# CSRF trusted origins for Railway deployment
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=[
+    'https://mingchang-meat.railway.app',
+    'https://mingchang-production.up.railway.app',
+])
 
 # Database - PostgreSQL on Railway
 import os
