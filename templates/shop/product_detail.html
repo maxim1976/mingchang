@@ -26,13 +26,39 @@
                 {% with product.primary_image as primary %}
                 <div class="main-image">
                     {% if primary %}
-                    <img id="mainImage" src="{{ primary.large.url }}" 
-                         alt="{{ primary.alt_text_zh|default:product.name_zh }}"
-                         class="w-full h-96 object-cover rounded-lg shadow-lg">
+                        {% with primary.large|safe_image_url as img_url %}
+                        {% if img_url %}
+                        <img id="mainImage" src="{{ img_url }}" 
+                             alt="{{ primary.alt_text_zh|default:product.name_zh }}"
+                             class="w-full h-96 object-cover rounded-lg shadow-lg">
+                        {% else %}
+                        <div class="w-full h-96 bg-gray-200 rounded-lg shadow-lg flex items-center justify-center">
+                            <div class="text-center text-gray-500">
+                                <svg class="mx-auto h-16 w-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <p>暫無圖片 No Image Available</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endwith %}
                     {% else %}
-                    <img id="mainImage" src="{{ product.images.first.large.url }}" 
-                         alt="{{ product.images.first.alt_text_zh|default:product.name_zh }}"
-                         class="w-full h-96 object-cover rounded-lg shadow-lg">
+                        {% with product.images.first.large|safe_image_url as img_url %}
+                        {% if img_url %}
+                        <img id="mainImage" src="{{ img_url }}" 
+                             alt="{{ product.images.first.alt_text_zh|default:product.name_zh }}"
+                             class="w-full h-96 object-cover rounded-lg shadow-lg">
+                        {% else %}
+                        <div class="w-full h-96 bg-gray-200 rounded-lg shadow-lg flex items-center justify-center">
+                            <div class="text-center text-gray-500">
+                                <svg class="mx-auto h-16 w-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <p>暫無圖片 No Image Available</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endwith %}
                     {% endif %}
                 </div>
                 {% endwith %}
@@ -41,12 +67,18 @@
                 {% if product.images.count > 1 %}
                 <div class="grid grid-cols-4 gap-2">
                     {% for image in product.images.all %}
-                    <button onclick="changeMainImage('{{ image.large.url }}', '{{ image.alt_text_zh|default:product.name_zh }}')"
+                    {% with image.large|safe_image_url as large_url %}
+                    {% with image.thumbnail|safe_image_url as thumb_url %}
+                    {% if large_url and thumb_url %}
+                    <button onclick="changeMainImage('{{ large_url }}', '{{ image.alt_text_zh|default:product.name_zh }}')"
                             class="thumbnail-btn border-2 border-gray-200 hover:border-primary-600 rounded overflow-hidden transition-colors duration-200">
-                        <img src="{{ image.thumbnail.url }}" 
+                        <img src="{{ thumb_url }}" 
                              alt="{{ image.alt_text_zh|default:product.name_zh }}"
                              class="w-full h-20 object-cover">
                     </button>
+                    {% endif %}
+                    {% endwith %}
+                    {% endwith %}
                     {% endfor %}
                 </div>
                 {% endif %}

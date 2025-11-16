@@ -77,3 +77,23 @@ def weight_display(weight_grams):
             return f"{kg:.1f} kg"
     else:
         return f"{weight_grams} g"
+
+
+@register.filter
+def safe_image_url(image_spec):
+    """
+    Safely get image URL, return empty string if file doesn't exist.
+    
+    Usage: {{ image.large|safe_image_url }}
+    """
+    try:
+        if image_spec and hasattr(image_spec, 'url'):
+            # Check if the source file exists
+            if hasattr(image_spec, 'source') and image_spec.source:
+                from django.core.files.storage import default_storage
+                if default_storage.exists(image_spec.source.name):
+                    return image_spec.url
+        return ""
+    except Exception:
+        return ""
+
