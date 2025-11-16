@@ -30,3 +30,6 @@ urlpatterns = [
 # Serve media files in development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    # Serve media files in production (Railway doesn't have separate storage)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
