@@ -25,11 +25,11 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Copy project files
 COPY . /app/
 
+# Create directories
+RUN mkdir -p /app/static /app/media/products
+
 # Collect static files
 RUN python manage.py collectstatic --noinput
-
-# Create media directory
-RUN mkdir -p /app/media/products
 
 # Copy and make entrypoint executable
 COPY entrypoint.sh /app/
