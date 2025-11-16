@@ -8,7 +8,7 @@ echo "Running database migrations..."
 python manage.py migrate --noinput
 
 echo "Creating cache table..."
-python manage.py createcachetable --noinput
+python manage.py createcachetable
 
 echo "Starting Gunicorn..."
 exec gunicorn --bind 0.0.0.0:${PORT:-8000} --workers 2 config.wsgi:application
