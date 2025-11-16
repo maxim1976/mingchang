@@ -31,8 +31,12 @@ RUN python manage.py collectstatic --noinput
 # Create media directory
 RUN mkdir -p /app/media/products
 
+# Copy and make entrypoint executable
+COPY entrypoint.sh /app/
+RUN chmod +x /app/entrypoint.sh
+
 # Expose port
 EXPOSE 8000
 
-# Run gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "2", "config.wsgi:application"]
+# Run entrypoint script
+CMD ["/app/entrypoint.sh"]
