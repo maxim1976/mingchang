@@ -1,0 +1,62 @@
+/* Custom styles for Shop MingChang */
+
+/* Ensure minimum touch target size for mobile (44px per WCAG) */
+.btn, button, a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Product card hover effect */
+.product-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Image lazy loading placeholder */
+img[loading="lazy"] {
+    background-color: #f3f4f6;
+}
+
+/* Loading indicator */
+.htmx-indicator {
+    display: none;
+}
+
+.htmx-request .htmx-indicator {
+    display: inline-block;
+}
+
+.htmx-request.htmx-indicator {
+    display: inline-block;
+}
+
+/* Sticky header on all screens */
+.sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: white;
+}
+
+/* Bilingual text spacing */
+.bilingual {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.bilingual .zh {
+    font-weight: 600;
+}
+
+.bilingual .en {
+    color: #6b7280;
+    font-size: 0.9em;
+}
