@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% load static shop_tags %}
+
+{% block title %}{{ product|get_translated_field:"name" }} - 明昌肉鋪 MingChang Meat Shop{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Breadcrumb -->
+    <nav class="mb-8">
+        <ol class="flex items-center space-x-2 text-sm text-gray-600">
+            <li><a href="{% url 'shop:home' %}" class="hover:text-primary-600">首頁 Home</a></li>
+            <li class="text-gray-400">/</li>
+            <li><a href="{% url 'shop:product_list' %}" class="hover:text-primary-600">產品 Products</a></li>
+            <li class="text-gray-400">/</li>
+            <li><a href="{{ product.category.get_absolute_url }}" class="hover:text-primary-600">{{ product.category|get_translated_field:"name" }}</a></li>
+            <li class="text-gray-400">/</li>
+            <li class="text-gray-800">{{ product.name_zh }}</li>
+        </ol>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <!-- Product Images -->
+        <div class="space-y-4">
+            {% if product.images.all %}
+                <!-- Primary Image -->
+                {% with product.primary_image as primary %}
+                <div class="main-image">
+                    {% if primary %}
+                    <img id="mainImage" src="{{ primary.large.url }}" 
+                         alt="{{ primary.alt_text_zh|default:product.name_zh }}"
+                         class="w-full h-96 object-cover rounded-lg shadow-lg">
+                    {% else %}
+                    <img id="mainImage" src="{{ product.images.first.large.url }}" 
+                         alt="{{ product.images.first.alt_text_zh|default:product.name_zh }}"
+                         class="w-full h-96 object-cover rounded-lg shadow-lg">
+                    {% endif %}
+                </div>
+                {% endwith %}
+
+                <!-- Thumbnail Gallery -->
+                {% if product.images.count > 1 %}
+                <div class="grid grid-cols-4 gap-2">
+                    {% for image in product.images.all %}
+                    <button onclick="changeMainImage('{{ image.large.url }}', '{{ image.alt_text_zh|default:product.name_zh }}')"
+                            class="thumbnail-btn border-2 border-gray-200 hover:border-primary-600 rounded overflow-hidden transition-colors duration-200">
+                        <img src="{{ image.thumbnail.url }}" 
+                             alt="{{ image.alt_text_zh|default:product.name_zh }}"
+                             class="w-full h-20 object-cover">
+                    </button>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            {% else %}
+                <!-- No Images Placeholder -->
+                <div class="w-full h-96 bg-gray-200 rounded-lg shadow-lg flex items-center justify-center">
+                    <div class="text-center text-gray-500">
+                        <svg class="mx-auto h-16 w-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <p>暫無圖片 No Image Available</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Product Details -->
+        <div>
+            <!-- Product Title -->
+            <div class="mb-6">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">
+                    {{ product|get_translated_field:"name" }}
+                </h1>
+                
+                <!-- Category Badge -->
+                <div class="flex items-center space-x-4 mb-4">
+                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
+                        {{ product.category|get_translated_field:"name" }}
+                    </span>
+                    
+                    <!-- Stock Status -->
+                    <span class="px-3 py-1 text-sm rounded-full {{ product.get_stock_status_badge_class }}">
+                        {% if product.stock_status == 'in_stock' %}有庫存 In Stock{% endif %}
+                        {% if product.stock_status == 'low_stock' %}庫存不足 Low Stock{% endif %}
+                        {% if product.stock_status == 'out_of_stock' %}缺貨 Out of Stock{% endif %}
+                        {% if product.stock_status == 'seasonal' %}季節性 Seasonal{% endif %}
+                    </span>
+
+                    {% if product.is_featured %}
+                    <span class="bg-primary-100 text-primary-800 px-3 py-1 rounded-full text-sm font-medium">
+                        精選 Featured
+                    </span>
+                    {% endif %}
+                </div>
+                
+                <!-- Price -->
+                <div class="mb-6">
+                    <span class="text-4xl font-bold text-primary-600">
+                        {{ product.price|format_twd }}
+                    </span>
+                    {% if product.unit %}
+                    <span class="text-gray-600 ml-2">/ {{ product.unit }}</span>
+                    {% endif %}
+                    {% if product.weight_grams %}
+                    <div class="text-gray-500 text-sm mt-1">
+                        重量 Weight: {{ product.weight_grams|weight_display }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Product Description -->
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">
+                    <span class="zh">產品描述</span>
+                    <span class="en text-gray-600">Description</span>
+                </h2>
+                <div class="prose max-w-none">
+                    <div class="text-gray-700 mb-4">
+                        {{ product.description_zh|linebreaks }}
+                    </div>
+                    {% if product.description_en %}
+                    <div class="text-gray-600 text-sm border-l-4 border-gray-300 pl-4">
+                        {{ product.description_en|linebreaks }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Origin Information -->
+            {% if product.origin_zh or product.origin_en %}
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">
+                    <span class="zh">產地來源</span>
+                    <span class="en text-gray-600">Origin</span>
+                </h2>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    {% if product.origin_zh %}
+                    <p class="text-gray-700">{{ product.origin_zh }}</p>
+                    {% endif %}
+                    {% if product.origin_en %}
+                    <p class="text-gray-600 text-sm">{{ product.origin_en }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Nutritional Information -->
+            {% if product.nutritional_info_zh or product.nutritional_info_en %}
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">
+                    <span class="zh">營養資訊</span>
+                    <span class="en text-gray-600">Nutritional Information</span>
+                </h2>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    {% if product.nutritional_info_zh %}
+                    <div class="text-gray-700 mb-2 whitespace-pre-line">{{ product.nutritional_info_zh }}</div>
+                    {% endif %}
+                    {% if product.nutritional_info_en %}
+                    <div class="text-gray-600 text-sm whitespace-pre-line">{{ product.nutritional_info_en }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Contact for Purchase -->
+            <div class="bg-primary-50 border border-primary-200 rounded-lg p-6 mb-8">
+                <h3 class="text-lg font-semibold text-primary-800 mb-3">
+                    <span class="zh">購買洽詢</span>
+                    <span class="en">Purchase Inquiry</span>
+                </h3>
+                <p class="text-primary-700 mb-4">
+                    請聯絡我們詢問此產品的購買資訊和供應狀況。<br>
+                    <span class="text-sm">Please contact us for purchase information and availability.</span>
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="tel:03-8123456" 
+                       class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg transition duration-200 flex items-center space-x-2">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                        </svg>
+                        <span>立即致電 Call Now</span>
+                    </a>
+                    <a href="{% url 'contact:contact' %}" 
+                       class="bg-white border border-primary-600 text-primary-600 hover:bg-primary-50 px-6 py-2 rounded-lg transition duration-200">
+                        <span class="zh">線上詢問</span>
+                        <span class="en">Online Inquiry</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Products -->
+    {% if related_products %}
+    <section class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-800 mb-8">
+            <span class="zh">相關產品</span>
+            <span class="en text-gray-600">Related Products</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for related_product in related_products %}
+            {% include 'components/product_card.html' with product=related_product %}
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</div>
+
+<script>
+function changeMainImage(imageUrl, altText) {
+    const mainImage = document.getElementById('mainImage');
+    mainImage.src = imageUrl;
+    mainImage.alt = altText;
+    
+    // Update active thumbnail
+    document.querySelectorAll('.thumbnail-btn').forEach(btn => {
+        btn.classList.remove('border-primary-600');
+        btn.classList.add('border-gray-200');
+    });
+    event.target.closest('.thumbnail-btn').classList.remove('border-gray-200');
+    event.target.closest('.thumbnail-btn').classList.add('border-primary-600');
+}
+</script>
+{% endblock %}

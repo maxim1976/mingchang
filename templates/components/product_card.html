@@ -1,0 +1,90 @@
+<!-- Reusable Product Card Component -->
+{% load static shop_tags %}
+<div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200 product-card">
+    
+    <!-- Product Image -->
+    {% if product.primary_image %}
+    <div class="h-48 overflow-hidden">
+        <a href="{{ product.get_absolute_url }}">
+            <img src="{{ product.primary_image.medium.url }}" 
+                 alt="{{ product.primary_image.alt_text_zh|default:product.name_zh }}"
+                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
+                 loading="lazy">
+        </a>
+    </div>
+    {% else %}
+    <div class="h-48 overflow-hidden">
+        <a href="{{ product.get_absolute_url }}">
+            <img src="{% static 'images/placeholders/default-product.jpg' %}" 
+                 alt="{{ product.name_zh }}"
+                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
+                 loading="lazy">
+        </a>
+    </div>
+    {% endif %}
+    
+    <!-- Product Info -->
+    <div class="p-4">
+        <!-- Header with badges -->
+        <div class="flex justify-between items-start mb-2">
+            <div class="flex-1">
+                <h3 class="text-lg font-semibold text-gray-800 line-clamp-2 mb-1">
+                    <a href="{{ product.get_absolute_url }}" class="hover:text-primary-600 transition-colors duration-200">
+                        {{ product|get_translated_field:"name" }}
+                    </a>
+                </h3>
+                <p class="text-sm text-gray-600">
+                    {{ product.category|get_translated_field:"name" }}
+                </p>
+            </div>
+            
+            <div class="flex flex-col space-y-1 ml-2">
+                {% if product.is_featured %}
+                <span class="bg-primary-100 text-primary-800 text-xs px-2 py-1 rounded-full whitespace-nowrap">
+                    精選
+                </span>
+                {% endif %}
+                
+                <!-- Stock Status Badge -->
+                <span class="text-xs px-2 py-1 rounded-full whitespace-nowrap {{ product.get_stock_status_badge_class }}">
+                    {% if product.stock_status == 'in_stock' %}有庫存{% endif %}
+                    {% if product.stock_status == 'low_stock' %}庫存不足{% endif %}
+                    {% if product.stock_status == 'out_of_stock' %}缺貨{% endif %}
+                    {% if product.stock_status == 'seasonal' %}季節性{% endif %}
+                </span>
+            </div>
+        </div>
+        
+        <!-- Description -->
+        <p class="text-gray-600 text-sm mb-3 line-clamp-2">
+            {% if product.description_zh %}
+                {{ product.description_zh|truncatewords:15 }}
+            {% else %}
+                {{ product.description_en|truncatewords:15 }}
+            {% endif %}
+        </p>
+        
+        <!-- Price and Action -->
+        <div class="flex justify-between items-center">
+            <div class="price-display">
+                <span class="text-xl font-bold text-primary-600">
+                    {{ product.price|format_twd }}
+                </span>
+                {% if product.unit %}
+                <span class="text-gray-500 text-sm">/ {{ product.unit }}</span>
+                {% endif %}
+                {% if product.weight_grams %}
+                <div class="text-gray-500 text-xs">
+                    {{ product.weight_grams|weight_display }}
+                </div>
+                {% endif %}
+            </div>
+            
+            <a href="{{ product.get_absolute_url }}" 
+               class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded transition duration-200 btn-primary text-sm">
+                <span class="zh">詳情</span>
+                <span class="en hidden">Details</span>
+            </a>
+        </div>
+    </div>
+</div>

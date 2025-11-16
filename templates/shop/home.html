@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static shop_tags %}
+
+{% block title %}日日鮮 - 花蓮優質肉品專賣店 | Daily Fresh Meats{% endblock %}
+
+ Daily Fresh Meats
+{% block content %}
+<div class="container mx-auto px-4">
+    <!-- Hero Section -->
+    <section class="relative py-32 text-center rounded-lg overflow-hidden mb-8 bg-cover bg-center bg-no-repeat" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static "images/hero-bg.jpg" %}');">
+        <div class="relative z-10">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
+                <span class="text-white drop-shadow-lg">日日鮮</span>
+            </h1>
+            <h2 class="text-2xl md:text-3xl text-white mb-6 drop-shadow-lg">
+                Daily Fresh Meats
+            </h2>
+            <p class="text-2xl text-white max-w-2xl mx-auto mb-8 drop-shadow-lg">
+                花蓮在地優質肉品專賣店，提供新鮮、優質的牛肉、豬肉、雞肉和海鮮產品<br>
+                <span class="text-gray-100 text-lg">Premium quality meat shop in Hualien, offering fresh beef, pork, chicken and seafood</span>
+            </p>
+            <a href="{% url 'shop:product_list' %}" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition duration-200 shadow-lg">
+                <span class="zh">瀏覽產品</span>
+                <span class="en">Browse Products</span>
+            </a>
+        </div>
+    </section>
+
+    {% if featured_products %}
+    <!-- Featured Products Section -->
+    <section class="py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                <span class="zh">精選產品</span>
+                <span class="en text-gray-600">Featured Products</span>
+            </h2>
+            <p class="text-gray-600">我們為您精心挑選的優質肉品 Our carefully selected premium meat products</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for product in featured_products %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200">
+                {% if product.primary_image %}
+                <div class="h-48 overflow-hidden">
+                    <img src="{{ product.primary_image.medium.url }}" 
+                         alt="{{ product.primary_image.alt_text_zh|default:product.name_zh }}"
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
+                         loading="lazy">
+                </div>
+                {% else %}
+                <div class="h-48 overflow-hidden">
+                    <img src="{% static 'images/placeholders/default-product.jpg' %}" 
+                         alt="{{ product.name_zh }}"
+                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
+                         loading="lazy">
+                </div>
+                {% endif %}
+                
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                        {{ product|get_translated_field:"name" }}
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                        {% if product.description_zh %}
+                            {{ product.description_zh|truncatewords:15 }}
+                        {% else %}
+                            {{ product.description_en|truncatewords:15 }}
+                        {% endif %}
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-primary-600">
+                            {{ product.price|format_twd }}
+                        </span>
+                        <a href="{{ product.get_absolute_url }}" 
+                           class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded transition duration-200">
+                            <span class="zh">詳情</span>
+                            <span class="en">Details</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-12">
+            <a href="{% url 'shop:product_list' %}" 
+               class="inline-block border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white font-bold py-3 px-8 rounded-lg transition duration-200">
+                <span class="zh">查看所有產品</span>
+                <span class="en">View All Products</span>
+            </a>
+        </div>
+    </section>
+    {% endif %}
+
+    {% if company_info %}
+    <!-- Company Info Section -->
+    <section class="py-16 bg-white rounded-lg shadow-sm">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                <span class="zh">關於我們</span>
+                <span class="en text-gray-600">About Us</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">
+                    {{ company_info|get_translated_field:"name" }}
+                </h3>
+                <div class="text-gray-600 space-y-4">
+                    <p>{{ company_info.about_zh|truncatewords:30 }}</p>
+                    {% if company_info.about_en %}
+                    <p class="text-gray-500 text-sm">{{ company_info.about_en|truncatewords:30 }}</p>
+                    {% endif %}
+                </div>
+                <div class="mt-6">
+                    <a href="{% url 'shop:about' %}" 
+                       class="text-primary-600 hover:text-primary-700 font-semibold">
+                        <span class="zh">了解更多</span>
+                        <span class="en">Learn More</span> →
+                    </a>
+                </div>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h4 class="font-semibold text-gray-800 mb-2">
+                        <span class="zh">聯絡資訊</span>
+                        <span class="en text-gray-600">Contact Information</span>
+                    </h4>
+                    <div class="space-y-2 text-sm text-gray-600">
+                        <p><strong>電話 Phone:</strong> <a href="tel:{{ company_info.phone }}" class="text-primary-600">{{ company_info.phone }}</a></p>
+                        <p><strong>信箱 Email:</strong> <a href="mailto:{{ company_info.email }}" class="text-primary-600">{{ company_info.email }}</a></p>
+                        <p><strong>地址 Address:</strong> {{ company_info.address_zh }}</p>
+                        {% if company_info.address_en %}
+                        <p class="text-gray-500">{{ company_info.address_en }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h4 class="font-semibold text-gray-800 mb-2">
+                        <span class="zh">營業時間</span>
+                        <span class="en text-gray-600">Business Hours</span>
+                    </h4>
+                    <div class="space-y-1 text-sm text-gray-600">
+                        <p>{{ company_info.business_hours_zh }}</p>
+                        {% if company_info.business_hours_en %}
+                        <p class="text-gray-500">{{ company_info.business_hours_en }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Categories Section -->
+    {% if categories %}
+    <section class="py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                <span class="zh">產品分類</span>
+                <span class="en text-gray-600">Product Categories</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {% for category in categories %}
+            <a href="{{ category.get_absolute_url }}" 
+               class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 text-center">
+                <h3 class="text-lg font-semibold text-gray-800">
+                    {{ category|get_translated_field:"name" }}
+                </h3>
+                {% if category.description_zh %}
+                <p class="text-sm text-gray-600 mt-2">{{ category.description_zh|truncatewords:8 }}</p>
+                {% endif %}
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</div>
+{% endblock %}

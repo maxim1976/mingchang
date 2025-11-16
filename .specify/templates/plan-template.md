@@ -31,7 +31,41 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+**I. Code Quality Standards**
+- [ ] Feature design supports single responsibility (no classes >300 lines justified)
+- [ ] Error handling strategy defined (no silent failures)
+- [ ] Type safety approach documented (strict typing enabled)
+- [ ] Code review process planned
+
+**II. Test-First Development (NON-NEGOTIABLE)**
+- [ ] Test scenarios written and stakeholder-approved BEFORE implementation
+- [ ] Contract tests planned for all APIs/schemas
+- [ ] Integration tests planned for user journeys
+- [ ] Unit test coverage target >80% defined
+- [ ] Tests are deterministic and fast (<100ms per unit test)
+
+**III. User Experience Consistency**
+- [ ] Design system compliance verified (UI components approved)
+- [ ] Accessibility requirements documented (WCAG 2.1 AA)
+- [ ] Responsive design tested (320px, 768px, 1920px viewports)
+- [ ] Loading states and feedback mechanisms designed
+- [ ] Error messages are actionable and user-friendly
+- [ ] Internationalization (i18n) keys planned (no hardcoded text)
+
+**IV. Performance Requirements**
+- [ ] Performance benchmarks defined for this feature
+  - Page load times: FCP <1.5s, TTI <3s, LCP <2.5s (if UI)
+  - API response times: Read <200ms p95, Write <500ms p95 (if backend)
+- [ ] Resource budgets assessed (JS bundle <300KB, images <200KB)
+- [ ] Database query optimization planned (no N+1, indexes reviewed)
+- [ ] Caching strategy defined with TTLs
+- [ ] Performance monitoring/alerting configured
+
+**Complexity Justification Required If:**
+- Any component exceeds size limits without documented rationale
+- Performance benchmarks cannot be met (requires optimization plan)
+- Accessibility requirements need exceptions (requires UX approval)
+- Test coverage falls below 80% (requires explicit justification)
 
 ## Project Structure
 

@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+{% load static shop_tags %}
+
+{% block title %}產品列表 Products - 明昌肉鋪 MingChang Meat Shop{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">
+            <span class="zh">產品列表</span>
+            <span class="en text-gray-600">Products</span>
+        </h1>
+        
+        {% if current_category %}
+        <div class="text-lg text-gray-600">
+            分類: {{ current_category|get_translated_field:"name" }}
+        </div>
+        {% endif %}
+        
+        {% if search_query %}
+        <div class="text-lg text-gray-600">
+            搜尋結果: "{{ search_query }}" - 找到 {{ products|length }} 項產品
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+            <!-- Categories Filter -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h3 class="text-lg font-semibold mb-4">
+                    <span class="zh">產品分類</span>
+                    <span class="en text-gray-600">Categories</span>
+                </h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="{% url 'shop:product_list' %}" 
+                           class="block py-2 px-3 rounded hover:bg-gray-100 {% if not current_category %}bg-primary-100 text-primary-700{% endif %}">
+                            <span class="zh">全部產品</span>
+                            <span class="en text-sm text-gray-600">All Products</span>
+                        </a>
+                    </li>
+                    {% for category in categories %}
+                    <li>
+                        <a href="{{ category.get_absolute_url }}" 
+                           class="block py-2 px-3 rounded hover:bg-gray-100 {% if current_category.slug == category.slug %}bg-primary-100 text-primary-700{% endif %}">
+                            {{ category|get_translated_field:"name" }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Search -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-4">
+                    <span class="zh">搜尋產品</span>
+                    <span class="en text-gray-600">Search</span>
+                </h3>
+                <form method="get" class="space-y-4">
+                    {% if current_category %}
+                    <input type="hidden" name="category" value="{{ current_category.slug }}">
+                    {% endif %}
+                    <input type="text" name="q" value="{{ search_query }}" 
+                           placeholder="搜尋產品名稱或描述..." 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500">
+                    <button type="submit" class="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition duration-200">
+                        <span class="zh">搜尋</span>
+                        <span class="en">Search</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="lg:col-span-3">
+            <!-- Sort Controls -->
+            <div class="flex justify-between items-center mb-6">
+                <div class="text-gray-600">
+                    共 {{ products|length }} 項產品
+                </div>
+                <div class="flex items-center space-x-4">
+                    <label class="text-sm text-gray-600">
+                        <span class="zh">排序:</span>
+                        <span class="en">Sort:</span>
+                    </label>
+                    <select name="sort" onchange="this.form.submit()" class="border border-gray-300 rounded px-3 py-1">
+                        <option value="featured" {% if sort_by == 'featured' %}selected{% endif %}>
+                            精選 Featured
+                        </option>
+                        <option value="price_asc" {% if sort_by == 'price_asc' %}selected{% endif %}>
+                            價格低到高 Price: Low to High
+                        </option>
+                        <option value="price_desc" {% if sort_by == 'price_desc' %}selected{% endif %}>
+                            價格高到低 Price: High to Low
+                        </option>
+                        <option value="name" {% if sort_by == 'name' %}selected{% endif %}>
+                            名稱 Name
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Products -->
+            {% if products %}
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                {% for product in products %}
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200">
+                    {% if product.primary_image %}
+                    <div class="h-48 overflow-hidden">
+                        <img src="{{ product.primary_image.medium.url }}" 
+                             alt="{{ product.primary_image.alt_text_zh|default:product.name_zh }}"
+                             class="w-full h-full object-cover hover:scale-105 transition-transform duration-200">
+                    </div>
+                    {% else %}
+                    <div class="h-48 bg-gray-200 flex items-center justify-center">
+                        <span class="text-gray-400">No Image</span>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-semibold text-gray-800 line-clamp-2">
+                                {{ product|get_translated_field:"name" }}
+                            </h3>
+                            {% if product.is_featured %}
+                            <span class="bg-primary-100 text-primary-800 text-xs px-2 py-1 rounded-full">
+                                精選 Featured
+                            </span>
+                            {% endif %}
+                        </div>
+                        
+                        <p class="text-gray-600 text-sm mb-3 line-clamp-2">
+                            {% if product.description_zh %}
+                                {{ product.description_zh|truncatewords:12 }}
+                            {% else %}
+                                {{ product.description_en|truncatewords:12 }}
+                            {% endif %}
+                        </p>
+                        
+                        <!-- Stock Status -->
+                        <div class="mb-3">
+                            <span class="inline-block px-2 py-1 text-xs rounded-full {{ product.get_stock_status_badge_class }}">
+                                {% if product.stock_status == 'in_stock' %}有庫存 In Stock{% endif %}
+                                {% if product.stock_status == 'low_stock' %}庫存不足 Low Stock{% endif %}
+                                {% if product.stock_status == 'out_of_stock' %}缺貨 Out of Stock{% endif %}
+                                {% if product.stock_status == 'seasonal' %}季節性 Seasonal{% endif %}
+                            </span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-primary-600">
+                                {{ product.price|format_twd }}
+                            </span>
+                            <a href="{{ product.get_absolute_url }}" 
+                               class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded transition duration-200">
+                                <span class="zh">詳情</span>
+                                <span class="en">Details</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if is_paginated %}
+            <div class="mt-8 flex justify-center">
+                <nav class="flex space-x-2">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_category %}&category={{ current_category.slug }}{% endif %}" 
+                           class="px-3 py-2 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                            Previous
+                        </a>
+                    {% endif %}
+                    
+                    <span class="px-3 py-2 bg-primary-600 text-white rounded-md">
+                        {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+                    </span>
+                    
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if current_category %}&category={{ current_category.slug }}{% endif %}" 
+                           class="px-3 py-2 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                            Next
+                        </a>
+                    {% endif %}
+                </nav>
+            </div>
+            {% endif %}
+
+            {% else %}
+            <!-- No Products -->
+            <div class="text-center py-16">
+                <div class="text-gray-400 mb-4">
+                    <svg class="mx-auto h-12 w-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2 2v-5m16 0h-2M4 13h2m0 0V9a2 2 0 012-2h2m4 0h2a2 2 0 012 2v4.01"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">沒有找到產品</h3>
+                <p class="text-gray-500 mb-4">No products found</p>
+                <a href="{% url 'shop:product_list' %}" class="text-primary-600 hover:text-primary-500">
+                    查看所有產品 View all products
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
