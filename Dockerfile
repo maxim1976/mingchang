@@ -25,6 +25,9 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Copy project files
 COPY . /app/
 
+# Copy static directory explicitly (excluded from git)
+COPY static /app/static
+
 # Create directories
 RUN mkdir -p /app/staticfiles /app/media/products
 
