@@ -104,7 +104,6 @@ python-slugify==8.0.4
 python-stdnum==2.1
 pytokens==0.3.0
 pytz==2025.2
-pywin32==311
 PyYAML==6.0.2
 redis==6.4.0
 referencing==0.36.2
