@@ -67,34 +67,43 @@ AWS_LOCATION = 'media'
 AWS_DEFAULT_ACL = 'public-read'
 AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 
-# Storage configuration - S3 for media, local for static
-STORAGES = {
-    'default': {
-        'BACKEND': 'storages.backends.s3.S3Storage',
-        'OPTIONS': {
-            'access_key': AWS_ACCESS_KEY_ID,
-            'secret_key': AWS_SECRET_ACCESS_KEY,
-            'bucket_name': AWS_STORAGE_BUCKET_NAME,
-            'region_name': AWS_S3_REGION_NAME,
-            'endpoint_url': AWS_S3_ENDPOINT_URL,
-            'location': AWS_LOCATION,
-            'default_acl': AWS_DEFAULT_ACL,
+# Storage configuration - S3 for media if AWS vars are set, local otherwise
+if AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY and AWS_STORAGE_BUCKET_NAME:
+    STORAGES = {
+        'default': {
+            'BACKEND': 'storages.backends.s3.S3Storage',
+            'OPTIONS': {
+                'access_key': AWS_ACCESS_KEY_ID,
+                'secret_key': AWS_SECRET_ACCESS_KEY,
+                'bucket_name': AWS_STORAGE_BUCKET_NAME,
+                'region_name': AWS_S3_REGION_NAME,
+                'endpoint_url': AWS_S3_ENDPOINT_URL,
+                'location': AWS_LOCATION,
+                'default_acl': AWS_DEFAULT_ACL,
+            },
         },
-    },
-    'staticfiles': {
-        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
-    },
-}
-
-# Update MEDIA_URL to use S3
-if AWS_STORAGE_BUCKET_NAME:
+        'staticfiles': {
+            'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        },
+    }
+    # Update MEDIA_URL to use S3
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
-
-# ImageKit configuration for production
-IMAGEKIT_DEFAULT_CACHEFILE_BACKEND = 'imagekit.cachefiles.backends.Simple'
-IMAGEKIT_CACHEFILE_DIR = 'CACHE/images'
-IMAGEKIT_DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
-IMAGEKIT_CACHEFILE_STORAGE = 'storages.backends.s3.S3Storage'
+    
+    # ImageKit configuration for S3
+    IMAGEKIT_DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
+    IMAGEKIT_CACHEFILE_STORAGE = 'storages.backends.s3.S3Storage'
+else:
+    # Fallback to local storage
+    STORAGES = {
+        'default': {
+            'BACKEND': 'django.core.files.storage.FileSystemStorage',
+        },
+        'staticfiles': {
+            'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        },
+    }
+    # ImageKit configuration for local
+    IMAGEKIT_DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # Caching with database
 CACHES = {
