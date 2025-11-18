@@ -64,8 +64,7 @@ AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME', default='ap-northeast-1')
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com'
 AWS_S3_ENDPOINT_URL = f'https://s3.{AWS_S3_REGION_NAME}.amazonaws.com'  # Explicit endpoint
 AWS_LOCATION = 'media'
-AWS_DEFAULT_ACL = 'public-read'
-AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+# Removed AWS_DEFAULT_ACL and AWS_S3_OBJECT_PARAMETERS to avoid ACL errors
 
 # Storage configuration - S3 for media if AWS vars are set, local otherwise
 if AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY and AWS_STORAGE_BUCKET_NAME:
@@ -79,7 +78,6 @@ if AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY and AWS_STORAGE_BUCKET_NAME:
                 'region_name': AWS_S3_REGION_NAME,
                 'endpoint_url': AWS_S3_ENDPOINT_URL,
                 'location': AWS_LOCATION,
-                'default_acl': AWS_DEFAULT_ACL,
             },
         },
         'staticfiles': {
