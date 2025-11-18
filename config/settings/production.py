@@ -94,6 +94,7 @@ if AWS_STORAGE_BUCKET_NAME:
 IMAGEKIT_DEFAULT_CACHEFILE_BACKEND = 'imagekit.cachefiles.backends.Simple'
 IMAGEKIT_CACHEFILE_DIR = 'CACHE/images'
 IMAGEKIT_DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
+IMAGEKIT_CACHEFILE_STORAGE = 'storages.backends.s3.S3Storage'
 
 # Caching with database
 CACHES = {
