@@ -88,11 +88,9 @@ def safe_image_url(image_spec):
     """
     try:
         if image_spec and hasattr(image_spec, 'url'):
-            # Check if the source file exists
-            if hasattr(image_spec, 'source') and image_spec.source:
-                from django.core.files.storage import default_storage
-                if default_storage.exists(image_spec.source.name):
-                    return image_spec.url
+            # For ImageSpecField, just return the URL
+            # ImageKit will generate the file on-demand when accessed
+            return image_spec.url
         return ""
     except Exception:
         return ""
