@@ -1,184 +1,126 @@
 {% extends 'base.html' %}
 {% load static shop_tags %}
 
-{% block title %}日日鮮 - 花蓮優質肉品專賣店 | Daily Fresh Meats{% endblock %}
+{% block title %}花蓮糕餅店 - 來自花蓮之心的手作美味 | Hualien Pastry Shop{% endblock %}
 
- Daily Fresh Meats
 {% block content %}
-<div class="container mx-auto px-4">
-    <!-- Hero Section -->
-    <section class="relative py-32 text-center rounded-lg overflow-hidden mb-8 bg-cover bg-center bg-no-repeat" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static "images/hero-bg.jpg" %}');">
-        <div class="relative z-10">
-            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
-                <span class="text-white drop-shadow-lg">日日鮮</span>
-            </h1>
-            <h2 class="text-2xl md:text-3xl text-white mb-6 drop-shadow-lg">
-                Daily Fresh Meats
-            </h2>
-            <p class="text-2xl text-white max-w-2xl mx-auto mb-8 drop-shadow-lg">
-                花蓮在地優質肉品專賣店，提供新鮮、優質的牛肉、豬肉、雞肉和海鮮產品<br>
-                <span class="text-gray-100 text-lg">Premium quality meat shop in Hualien, offering fresh beef, pork, chicken and seafood</span>
-            </p>
-            <a href="{% url 'shop:product_list' %}" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg transition duration-200 shadow-lg">
-                <span class="zh">瀏覽產品</span>
-                <span class="en">Browse Products</span>
-            </a>
+<!-- HeroSection -->
+<section class="w-full">
+    <div class="@container">
+        <div class="p-4 md:p-8">
+            <div class="flex min-h-[60vh] md:min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-center justify-center p-4 text-center" data-alt="A beautiful arrangement of Taiwanese pastries on a dark wooden table" style='background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.5) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuBNszR4cBKja6YJNzgoGIs5GN1czzQlBwvzs-4S3WGF1inK-86gBcSjLY_VlANynXYDBbqyLUB7YGybpFrMGhDPjj5xHhaWK_aypIpwo_nqFDF5M0HlzId_9gaa965NyUTAA266TR9RzxeNjeqauT0VZQmkUVW3TXjeDVDWbVu8VFWxDBA3mGPdZzucVlaf7SUs_rFtr-tagnRK9wHtIicO_308dTR6-r8blUM-KpghYr08rV0qRvcW_uwBlQDytPRmGB3HU5_6K-zQ");'>
+                <div class="flex flex-col gap-2">
+                    <h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em] font-serif">花蓮糕餅店<br><span class="text-3xl @[480px]:text-4xl">Hualien Pastry Shop</span></h1>
+                    <h2 class="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal">來自花蓮之心的手作美味<br>Handcrafted Delights from the Heart of Hualien</h2>
+                </div>
+                <a href="{% url 'shop:product_list' %}" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em] hover:bg-opacity-90 transition-colors">
+                    <span class="truncate">探索我們的系列 Explore Our Collection</span>
+                </a>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    {% if featured_products %}
-    <!-- Featured Products Section -->
-    <section class="py-16">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">
-                <span class="zh">精選產品</span>
-                <span class="en text-gray-600">Featured Products</span>
-            </h2>
-            <p class="text-gray-600">我們為您精心挑選的優質肉品 Our carefully selected premium meat products</p>
+<!-- FeatureSection (About) -->
+<section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <div class="flex flex-col lg:flex-row gap-10 @container items-center">
+        <div class="flex flex-col gap-4 lg:w-1/2">
+            <h2 class="text-text-light dark:text-text-dark tracking-light text-[32px] font-bold leading-tight @[480px]:text-4xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em] max-w-[720px] font-serif">花蓮精選伴手禮<br><span class="text-2xl @[480px]:text-3xl">Hualien Selected Souvenirs</span></h2>
+            <p class="text-subtext-light dark:text-subtext-dark text-base font-normal leading-normal max-w-[720px]">我們對當地食材和傳統工藝的承諾在每一口中綻放光芒。我們使用來自花蓮最優質的食材，如芋頭和地瓜，結合代代相傳的烘焙方法，為您帶來正宗的台灣味道。<br><br>Our commitment to local ingredients and traditional craftsmanship shines through in every bite. We use the finest ingredients from Hualien, like taro and sweet potato, combined with time-honored baking methods to bring you an authentic taste of Taiwan.</p>
         </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:w-1/2">
+            <div class="flex flex-col gap-3">
+                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg" data-alt="Fresh taro and sweet potatoes arranged on a rustic wooden board" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDb3gQkdWOvMwjXD7RCtlRuBENuc3l_Zi5zkN5vAM0dzg3Cxny3IAxkye9ApFVqm-oQjGWpPlLC3-9Yi0wDPhktzIM6GrIeMoicJpB5FhtHgP0kgCMeLuD8N-MWZViGBRdiDtG4QsYb9TQ_IUBaIhGYC0liEtTBKa99bJS__EtqZoxOm-xGgDjodNdZ6zhxfbyhC9XkJfga27sM83AST7NOp0ySgUiqkZlmFDZ1LwCtCnwcn4GPILDfHOUclg1Z-6E9omRLxY-vN5Jw");'></div>
+                <div>
+                    <p class="text-text-light dark:text-text-dark text-base font-medium leading-normal">當地食材 Local Ingredients</p>
+                    <p class="text-subtext-light dark:text-subtext-dark text-sm font-normal leading-normal">我們直接從花蓮當地農場採購最新鮮的食材，以確保正宗風味。<br>We source the freshest ingredients directly from local farms in Hualien to ensure authentic flavor.</p>
+                </div>
+            </div>
+            <div class="flex flex-col gap-3">
+                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg" data-alt="A baker's hands skillfully kneading dough on a floured surface" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBnmLv6Ykh3z5tvdwwEv3rGQwAvq6IqhZiH6T1EvwE3Tx5WAyyJtCXLeYN4TG2KnhWOTikvLtbAA9CEFGk5_EXyoiGoEc-oIC2IIevNNe_KntCIDvnbNsnn-6XvgPMA8eP_N_yPjLESpPoH8YHZ6aYqzOprLZpiMntxnIpjmqy0zr77_JupNlPaxZigm4Kfz5ewDKLiddiArB21D2lYEoA6OaVuEsMvew5XGcU8QIf-g4hVmj_QcaNx9EChodo8MOEUY7gv-lyGU5po");'></div>
+                <div>
+                    <p class="text-text-light dark:text-text-dark text-base font-medium leading-normal">工匠之作 Artisan at Work</p>
+                    <p class="text-subtext-light dark:text-subtext-dark text-sm font-normal leading-normal">我們的烘焙大師運用世代相傳的傳統技術，創作出我們的招牌糕點。<br>Our master bakers use traditional techniques passed down through generations to create our signature pastries.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Featured Products Section -->
+<section class="bg-surface-light dark:bg-surface-dark py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <!-- SectionHeader -->
+        <h2 class="text-text-light dark:text-text-dark text-[22px] font-bold leading-tight tracking-[-0.015em] pb-8 text-center font-serif sm:text-3xl">精選產品<br><span class="text-lg sm:text-2xl">Featured Products</span></h2>
+        
+        {% if featured_products %}
+        <!-- ImageGrid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {% for product in featured_products %}
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200">
+            <div class="flex flex-col gap-3 pb-3">
                 {% if product.primary_image %}
-                <div class="h-48 overflow-hidden">
-                    <img src="{{ product.primary_image.medium.url }}" 
-                         alt="{{ product.primary_image.alt_text_zh|default:product.name_zh }}"
-                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
-                         loading="lazy">
-                </div>
+                <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="{{ product.primary_image.alt_text_zh|default:product.name_zh }}" style='background-image: url("{{ product.primary_image.medium.url }}");'></div>
                 {% else %}
-                <div class="h-48 overflow-hidden">
-                    <img src="{% static 'images/placeholders/default-product.jpg' %}" 
-                         alt="{{ product.name_zh }}"
-                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
-                         loading="lazy">
-                </div>
+                <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="{{ product.name_zh }}" style='background-image: url("{% static 'images/placeholders/default-product.jpg' %}");'></div>
                 {% endif %}
-                
-                <div class="p-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">
-                        {{ product|get_translated_field:"name" }}
-                    </h3>
-                    <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                <div>
+                    <p class="text-text-light dark:text-text-dark text-base font-medium leading-normal">{{ product|get_translated_field:"name" }}</p>
+                    <p class="text-subtext-light dark:text-subtext-dark text-sm font-normal leading-normal">
                         {% if product.description_zh %}
                             {{ product.description_zh|truncatewords:15 }}
                         {% else %}
                             {{ product.description_en|truncatewords:15 }}
                         {% endif %}
                     </p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-primary-600">
-                            {{ product.price|format_twd }}
-                        </span>
-                        <a href="{{ product.get_absolute_url }}" 
-                           class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded transition duration-200">
-                            <span class="zh">詳情</span>
-                            <span class="en">Details</span>
-                        </a>
-                    </div>
+                    <a href="{{ product.get_absolute_url }}" class="text-primary hover:underline text-sm font-medium mt-2 inline-block">查看詳情 View Details →</a>
                 </div>
             </div>
             {% endfor %}
         </div>
-
-        <div class="text-center mt-12">
-            <a href="{% url 'shop:product_list' %}" 
-               class="inline-block border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white font-bold py-3 px-8 rounded-lg transition duration-200">
-                <span class="zh">查看所有產品</span>
-                <span class="en">View All Products</span>
-            </a>
-        </div>
-    </section>
-    {% endif %}
-
-    {% if company_info %}
-    <!-- Company Info Section -->
-    <section class="py-16 bg-white rounded-lg shadow-sm">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">
-                <span class="zh">關於我們</span>
-                <span class="en text-gray-600">About Us</span>
-            </h2>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-                <h3 class="text-2xl font-semibold text-gray-800 mb-4">
-                    {{ company_info|get_translated_field:"name" }}
-                </h3>
-                <div class="text-gray-600 space-y-4">
-                    <p>{{ company_info.about_zh|truncatewords:30 }}</p>
-                    {% if company_info.about_en %}
-                    <p class="text-gray-500 text-sm">{{ company_info.about_en|truncatewords:30 }}</p>
-                    {% endif %}
-                </div>
-                <div class="mt-6">
-                    <a href="{% url 'shop:about' %}" 
-                       class="text-primary-600 hover:text-primary-700 font-semibold">
-                        <span class="zh">了解更多</span>
-                        <span class="en">Learn More</span> →
-                    </a>
+        {% else %}
+        <!-- Default Product Display -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="flex flex-col gap-3 pb-3">
+                <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="A stack of golden, flaky Sun Cakes on a white plate" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAdFbxQ-po0Lv6rcv94QgqUDOlBlntG6HDRxfs-CUR5dGbPYd5XSmWITJwW14aFFF5A_RL8ZsU5ZZcCe1RatijWQWUk7yE5-OPm3metpZCXtj1vCFeDrjENEH1Yd-rxQUPFbKfW9xcS81rjnaxxfE6X6SDHAEOHUVI3OqHvSY4Fz1S7_Dz_szPb7NWP88jWKT0rXTuepyHp5rxsfoa15a0mrS-bOt8UkUjns3bwcSNtuZAb0eiTZx0qzyGZpn9zv7IJxDALRybIEJdC");'></div>
+                <div>
+                    <p class="text-text-light dark:text-text-dark text-base font-medium leading-normal">太陽餅 Sun Cake</p>
+                    <p class="text-subtext-light dark:text-subtext-dark text-sm font-normal leading-normal">酥脆的餅皮包裹著香甜的麥芽糖餡。<br>Flaky pastry with a sweet maltose filling.</p>
                 </div>
             </div>
-            
-            <div class="space-y-4">
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-gray-800 mb-2">
-                        <span class="zh">聯絡資訊</span>
-                        <span class="en text-gray-600">Contact Information</span>
-                    </h4>
-                    <div class="space-y-2 text-sm text-gray-600">
-                        <p><strong>電話 Phone:</strong> <a href="tel:{{ company_info.phone }}" class="text-primary-600">{{ company_info.phone }}</a></p>
-                        <p><strong>信箱 Email:</strong> <a href="mailto:{{ company_info.email }}" class="text-primary-600">{{ company_info.email }}</a></p>
-                        <p><strong>地址 Address:</strong> {{ company_info.address_zh }}</p>
-                        {% if company_info.address_en %}
-                        <p class="text-gray-500">{{ company_info.address_en }}</p>
-                        {% endif %}
-                    </div>
+            <div class="flex flex-col gap-3 pb-3">
+                <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="Rectangular Pineapple Cakes with a golden-brown crust" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuClCREsiy3gDSfA4TEFIEQWSDzBKNG1q5tUTXwV6CerMeXftPiXMG2U2DucHHws0sxNGhs6K06I2voJqywKCG8JORLSggnySZ_0mzCKj1pEtfo8gFmwBa-z8RibUyUZ4pLx06vbq4MsH3K_Z_umIOgyvTKySaHMJiNzqSmP-lYV4xA42nVl066iYS81pvcoiuLmheUsJdlSzs3P4Q1_bX3e_iUv7k5cYuMB-13qd45rxsEEne1_sytJkb9RoaZdDhg85gVwXbNLzUW7");'></div>
+                <div>
+                    <p class="text-text-light dark:text-text-dark text-base font-medium leading-normal">鳳梨酥 Pineapple Cake</p>
+                    <p class="text-subtext-light dark:text-subtext-dark text-sm font-normal leading-normal">奶油酥餅包裹著濃郁的鳳梨果醬。<br>Buttery shortbread encasing a rich pineapple jam.</p>
                 </div>
-                
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h4 class="font-semibold text-gray-800 mb-2">
-                        <span class="zh">營業時間</span>
-                        <span class="en text-gray-600">Business Hours</span>
-                    </h4>
-                    <div class="space-y-1 text-sm text-gray-600">
-                        <p>{{ company_info.business_hours_zh }}</p>
-                        {% if company_info.business_hours_en %}
-                        <p class="text-gray-500">{{ company_info.business_hours_en }}</p>
-                        {% endif %}
-                    </div>
+            </div>
+            <div class="flex flex-col gap-3 pb-3">
+                <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="Colorful, individually wrapped handmade nougats" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuATFIBLQi5RQoFJjiDZouTL8ycT1aINzPmF6rkMPHdAUhu5qi7u-AJynxGTZZr7OQZrySv6FhMSTLYiBrTpRzp_rAgFyufCTxXx7xBOsSt7kMr7es5Nycm4dJvf0WDXixLB4RExTcEl2ywJdxf_A6xws1JQ3eAOrXPtqlgdEFFX5QWFaoUKF61hMiiGPDyQXvKK0gpVghxw1lxpETV9SXGvo5CHBfpGORXMAkRAIOVfMerNH0lbiyTRgcBbs24NBXfNsNCVY0g5bXjE");'></div>
+                <div>
+                    <p class="text-text-light dark:text-text-dark text-base font-medium leading-normal">手工牛軋糖 Handmade Nougat</p>
+                    <p class="text-subtext-light dark:text-subtext-dark text-sm font-normal leading-normal">有嚼勁的牛軋糖配上香脆的杏仁和花生。<br>Chewy nougat with crunchy almonds and peanuts.</p>
+                </div>
+            </div>
+            <div class="flex flex-col gap-3 pb-3">
+                <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="Soft, round mochi dusted with white powder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBaRpdU0eN5zF2hZ6Ex-d2DjCO0EzGwWPY3dlvCdpnkfezfHbRTPAoM0aAbHE33VchsLGsOzuRluMadz1WAExboBzA7IH9gQfV5bHRq3Serd3ylacbsAzWz6rlMrTaKIjRRwqcjqSFOOfhX7icU7fefDrSk_UjhttxQe6yL-_gAkiaNfbHF2P6ruaVpxDghekJFB9W7oan_VB0xlLtjYK5idwg2EBcDyb9XvNa4km9YgBHAQtjydTLUafL4XcP--XUPqFr3RY-CTEK9");'></div>
+                <div>
+                    <p class="text-text-light dark:text-text-dark text-base font-medium leading-normal">麻糬 Mochi</p>
+                    <p class="text-subtext-light dark:text-subtext-dark text-sm font-normal leading-normal">柔軟有嚼勁的米糕配上各種甜蜜內餡。<br>Soft and chewy rice cake with various sweet fillings.</p>
                 </div>
             </div>
         </div>
-    </section>
-    {% endif %}
+        {% endif %}
+    </div>
+</section>
 
-    <!-- Categories Section -->
-    {% if categories %}
-    <section class="py-16">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">
-                <span class="zh">產品分類</span>
-                <span class="en text-gray-600">Product Categories</span>
-            </h2>
-        </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {% for category in categories %}
-            <a href="{{ category.get_absolute_url }}" 
-               class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 text-center">
-                <h3 class="text-lg font-semibold text-gray-800">
-                    {{ category|get_translated_field:"name" }}
-                </h3>
-                {% if category.description_zh %}
-                <p class="text-sm text-gray-600 mt-2">{{ category.description_zh|truncatewords:8 }}</p>
-                {% endif %}
-            </a>
-            {% endfor %}
-        </div>
-    </section>
-    {% endif %}
-</div>
+<!-- CTA Banner -->
+<section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <div class="bg-primary/20 dark:bg-primary/30 rounded-lg p-8 sm:p-12 text-center flex flex-col items-center gap-6">
+        <h2 class="text-2xl sm:text-3xl font-bold text-text-light dark:text-text-dark font-serif">將花蓮的味道帶回家<br><span class="text-xl sm:text-2xl">Bring a Taste of Hualien Home</span></h2>
+        <p class="text-subtext-light dark:text-subtext-dark max-w-xl">從我們的廚房到您的手中，體驗正宗的台灣風味。立即訂購，與您的親人分享這份喜悅。<br><br>From our kitchen to your hands, experience the authentic flavors of Taiwan. Order now and share the delight with your loved ones.</p>
+        <a href="{% url 'shop:product_list' %}" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-colors">
+            <span class="truncate">選購所有伴手禮 Shop All Souvenirs</span>
+        </a>
+    </div>
+</section>
 {% endblock %}

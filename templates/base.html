@@ -6,44 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-    <title>{% block title %}日日鮮 Daily Meats Fresh{% endblock %}</title>
+    <title>{% block title %}花蓮糕餅店 Hualien Pastry Shop{% endblock %}</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="{% block meta_description %}花蓮在地優質肉品專賣店 - Hualien Local Quality Meat Shop{% endblock %}">
-    <meta name="keywords" content="花蓮肉鋪,牛肉,豬肉,雞肉,海鮮,Hualien,meat,beef,pork,chicken,seafood">
-    <meta name="author" content="MingChang Meat Shop">
+    <meta name="description" content="{% block meta_description %}來自花蓮之心的手作美味 - Handcrafted Delights from the Heart of Hualien{% endblock %}">
+    <meta name="keywords" content="花蓮,伴手禮,糕餅,太陽餅,鳳梨酥,牛軋糖,麻糬,Hualien,souvenirs,pastries,sun cake,pineapple cake,nougat,mochi">
+    <meta name="author" content="Hualien Pastry Shop">
     
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="{% block og_title %}明昌肉鋪 MingChang Meat Shop{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}花蓮在地優質肉品專賣店{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}花蓮糕餅店 Hualien Pastry Shop{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}來自花蓮之心的手作美味{% endblock %}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     {% block og_image %}{% endblock %}
     
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
         tailwind.config = {
+            darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        primary: {
-                            50: '#fef2f2',
-                            100: '#fee2e2',
-                            200: '#fecaca',
-                            300: '#fca5a5',
-                            400: '#f87171',
-                            500: '#ef4444',
-                            600: '#dc2626',
-                            700: '#b91c1c',
-                            800: '#991b1b',
-                            900: '#7f1d1d',
-                        }
-                    }
+                        "primary": "#ee652b",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221510",
+                        "text-light": "#181311",
+                        "text-dark": "#f8f6f6",
+                        "subtext-light": "#896d61",
+                        "subtext-dark": "#a1918a",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#2d1b14",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "Noto Sans", "sans-serif"],
+                        "serif": ["Noto Serif TC", "serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
                 }
             }
         }
     </script>
+    
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
     
     <!-- HTMX -->
     <script src="{% static 'js/htmx.min.js' %}" defer></script>
@@ -56,7 +69,7 @@
     
     {% block extra_css %}{% endblock %}
 </head>
-<body class="min-h-screen flex flex-col bg-gray-50">    
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">    
     <!-- Navbar -->
     {% include 'components/navbar.html' %}
     

@@ -1,55 +1,31 @@
 {% load static %}
-<footer class="bg-gray-800 text-white mt-auto">
-    <div class="container mx-auto px-4 py-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Company Info -->
-            <div>
-                <h3 class="text-xl font-bold mb-4 bilingual">
-                    <span class="zh">明昌肉鋪</span>
-                    <span class="en text-gray-300">MingChang Meat</span>
-                </h3>
-                <p class="text-gray-300 text-sm">
-                    花蓮在地優質肉品專賣店<br>
-                    Hualien Local Quality Meat Shop
-                </p>
-            </div>
-            
-            <!-- Quick Links -->
-            <div>
-                <h4 class="font-semibold mb-4 bilingual">
-                    <span class="zh">快速連結</span>
-                    <span class="en text-gray-300">Quick Links</span>
-                </h4>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="{% url 'shop:home' %}" class="hover:text-primary-400">首頁 Home</a></li>
-                    <li><a href="{% url 'shop:product_list' %}" class="hover:text-primary-400">產品 Products</a></li>
-                    <li><a href="{% url 'shop:about' %}" class="hover:text-primary-400">關於我們 About Us</a></li>
-                    <li><a href="{% url 'contact:contact' %}" class="hover:text-primary-400">聯絡我們 Contact</a></li>
-                </ul>
-            </div>
-            
-            <!-- Social Media -->
-            <div>
-                <h4 class="font-semibold mb-4 bilingual">
-                    <span class="zh">聯絡方式</span>
-                    <span class="en text-gray-300">Connect With Us</span>
-                </h4>
-                <div class="flex space-x-4 text-2xl">
-                    <a href="#" class="hover:text-green-400" aria-label="LINE">
-                        <span>💬</span>
-                    </a>
-                    <a href="#" class="hover:text-green-400" aria-label="WhatsApp">
-                        <span>📱</span>
-                    </a>
-                    <a href="#" class="hover:text-blue-400" aria-label="Facebook">
-                        <span>📘</span>
-                    </a>
+<footer class="bg-surface-light dark:bg-surface-dark">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-4 text-text-light dark:text-text-dark">
+                <div class="size-6 text-primary">
+                    <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path></svg>
                 </div>
+                <h2 class="text-lg font-bold tracking-[-0.015em] font-serif">花蓮糕餅店 Hualien Pastry Shop</h2>
+            </div>
+            <div class="text-center text-subtext-light dark:text-subtext-dark text-sm">
+                <p>台灣花蓮縣花蓮市糕餅街123號 970<br>123 Bakery St, Hualien City, Hualien County, Taiwan 970</p>
+                <p>每日營業 Open Daily: 9:00 AM - 9:00 PM</p>
+            </div>
+            <div class="flex gap-4">
+                <a class="text-subtext-light dark:text-subtext-dark hover:text-primary dark:hover:text-primary" href="#" aria-label="Twitter">
+                    <svg class="size-6" fill="currentColor" viewbox="0 0 24 24"><path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 2.9,4.79C2.53,5.42 2.33,6.16 2.33,6.94C2.33,8.43 3.11,9.75 4.26,10.54C3.54,10.51 2.87,10.31 2.3,10.01C2.3,10.02 2.3,10.04 2.3,10.06C2.3,12.27 3.81,14.12 5.82,14.54C5.46,14.64 5.08,14.7 4.69,14.7C4.42,14.7 4.15,14.67 3.89,14.61C4.47,16.45 6.13,17.72 8.1,17.76C6.6,18.88 4.72,19.56 2.68,19.56C2.32,19.56 1.97,19.54 1.62,19.5C3.62,20.81 5.96,21.5 8.46,21.5C16.02,21.5 20.34,15.12 20.34,9.53C20.34,9.33 20.34,9.14 20.33,8.94C21.14,8.36 21.86,7.24 22.46,6Z"></path></svg>
+                </a>
+                <a class="text-subtext-light dark:text-subtext-dark hover:text-primary dark:hover:text-primary" href="#" aria-label="GitHub">
+                    <svg class="size-6" fill="currentColor" viewbox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12C2,16.42 4.87,20.17 9,21.5C9.08,21.5 9.13,21.45 9.13,21.4V19.06C6.88,19.5 6.42,18.06 6.42,18.06C6.1,17.27 5.5,17 5.5,17C4.86,16.56 5.59,16.56 5.59,16.56C6.3,16.61 6.67,17.27 6.67,17.27C7.31,18.45 8.42,18.1 8.82,17.92C8.88,17.37 9.1,17.03 9.31,16.83C7.42,16.63 5.42,15.92 5.42,12.81C5.42,11.79 5.78,10.97 6.35,10.33C6.26,10.13 5.96,9.28 6.45,8.13C6.45,8.13 7.17,7.9 8.8,9C9.49,8.8 10.23,8.7 11,8.7C11.77,8.7 12.51,8.8 13.2,9C14.83,7.9 15.55,8.13 15.55,8.13C16.04,9.28 15.74,10.13 15.65,10.33C16.22,10.97 16.58,11.79 16.58,12.81C16.58,15.93 14.58,16.63 12.69,16.83C12.96,17.07 13.23,17.5 13.23,18.16V21.4C13.23,21.45 13.28,21.5 13.36,21.5C17.13,20.17 20,16.42 20,12A10,10 0 0,0 12,2Z"></path></svg>
+                </a>
+                <a class="text-subtext-light dark:text-subtext-dark hover:text-primary dark:hover:text-primary" href="#" aria-label="Instagram">
+                    <svg class="size-6" fill="currentColor" viewbox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"></path></svg>
+                </a>
             </div>
         </div>
-        
-        <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm text-gray-400">
-            <p>&copy; 2025 明昌肉鋪 MingChang Meat Shop. All rights reserved.</p>
+        <div class="border-t border-gray-200 dark:border-gray-700 mt-8 pt-8 text-center text-sm text-subtext-light dark:text-subtext-dark">
+            <p>&copy; 2024 花蓮糕餅店 Hualien Pastry Shop. 版權所有 All rights reserved.</p>
         </div>
     </div>
 </footer>

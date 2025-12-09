@@ -1,60 +1,37 @@
 {% load static %}
-<nav class="bg-white shadow-md sticky-nav" x-data="{ mobileMenuOpen: false }">
-    <div class="container mx-auto px-4 py-4">
-        <div class="flex items-center justify-between">
-            <!-- Logo -->
-            <a href="{% url 'shop:home' %}" class="flex items-center space-x-2">
-                <span class="text-2xl font-bold text-primary-600">日日鮮</span>
-                <span class="text-lg text-gray-600">Daily Fresh Meats</span>
+<header class="w-full sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm" x-data="{ mobileMenuOpen: false }">
+    <div class="mx-auto flex max-w-7xl items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f4f1f0] dark:border-b-surface-dark px-4 sm:px-6 lg:px-8 py-3">
+        <div class="flex items-center gap-4 text-text-light dark:text-text-dark">
+            <a href="{% url 'shop:home' %}" class="flex items-center gap-4">
+                <div class="size-6 text-primary">
+                    <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path></svg>
+                </div>
+                <h2 class="text-lg font-bold tracking-[-0.015em] font-serif">Hualien Pastry Shop</h2>
             </a>
-            
-            <!-- Desktop Navigation -->
-            <div class="hidden md:flex items-center space-x-6">
-                <a href="{% url 'shop:home' %}" class="bilingual hover:text-primary-600">
-                    <span class="zh">首頁</span>
-                    <span class="en">Home</span>
-                </a>
-                <a href="{% url 'shop:product_list' %}" class="bilingual hover:text-primary-600">
-                    <span class="zh">產品</span>
-                    <span class="en">Products</span>
-                </a>
-                <a href="{% url 'shop:about' %}" class="bilingual hover:text-primary-600">
-                    <span class="zh">關於我們</span>
-                    <span class="en">About Us</span>
-                </a>
-                <a href="{% url 'contact:contact' %}" class="bilingual hover:text-primary-600">
-                    <span class="zh">聯絡我們</span>
-                    <span class="en">Contact</span>
-                </a>
-            </div>
-            
-            <!-- Mobile Menu Button -->
-            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 rounded-lg hover:bg-gray-100">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    <path x-show="mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
+        </div>
+        <div class="hidden md:flex flex-1 justify-end gap-8">
+            <nav class="flex items-center gap-9">
+                <a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark hover:text-primary dark:hover:text-primary" href="{% url 'shop:home' %}">首頁 Home</a>
+                <a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark hover:text-primary dark:hover:text-primary" href="{% url 'shop:product_list' %}">產品 Products</a>
+                <a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark hover:text-primary dark:hover:text-primary" href="{% url 'shop:about' %}">關於我們 About Us</a>
+                <a class="text-sm font-medium leading-normal text-text-light dark:text-text-dark hover:text-primary dark:hover:text-primary" href="{% url 'contact:contact' %}">聯絡我們 Contact</a>
+            </nav>
+            <button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-colors">
+                <span class="truncate">立即購買 Shop Now</span>
             </button>
         </div>
-        
-        <!-- Mobile Navigation -->
-        <div x-show="mobileMenuOpen" x-transition class="md:hidden mt-4 space-y-2">
-            <a href="{% url 'shop:home' %}" class="block py-2 px-4 hover:bg-gray-100 rounded bilingual">
-                <span class="zh">首頁</span>
-                <span class="en">Home</span>
-            </a>
-            <a href="{% url 'shop:product_list' %}" class="block py-2 px-4 hover:bg-gray-100 rounded bilingual">
-                <span class="zh">產品</span>
-                <span class="en">Products</span>
-            </a>
-            <a href="{% url 'shop:about' %}" class="block py-2 px-4 hover:bg-gray-100 rounded bilingual">
-                <span class="zh">關於我們</span>
-                <span class="en">About Us</span>
-            </a>
-            <a href="{% url 'contact:contact' %}" class="block py-2 px-4 hover:bg-gray-100 rounded bilingual">
-                <span class="zh">聯絡我們</span>
-                <span class="en">Contact</span>
-            </a>
-        </div>
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden flex items-center justify-center rounded-lg h-10 w-10 text-text-light dark:text-text-dark">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
     </div>
-</nav>
+    
+    <!-- Mobile Navigation -->
+    <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-background-light dark:bg-background-dark border-b border-solid border-b-[#f4f1f0] dark:border-b-surface-dark">
+        <nav class="flex flex-col px-4 py-2">
+            <a href="{% url 'shop:home' %}" class="py-3 text-sm font-medium text-text-light dark:text-text-dark hover:text-primary">首頁 Home</a>
+            <a href="{% url 'shop:product_list' %}" class="py-3 text-sm font-medium text-text-light dark:text-text-dark hover:text-primary">產品 Products</a>
+            <a href="{% url 'shop:about' %}" class="py-3 text-sm font-medium text-text-light dark:text-text-dark hover:text-primary">關於我們 About Us</a>
+            <a href="{% url 'contact:contact' %}" class="py-3 text-sm font-medium text-text-light dark:text-text-dark hover:text-primary">聯絡我們 Contact</a>
+        </nav>
+    </div>
+</header>
