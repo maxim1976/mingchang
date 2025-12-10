@@ -12,7 +12,6 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['mingchang-meat.railway.app',
 
 # CSRF trusted origins for Railway deployment
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=[
-    'https://mingchang-meat.railway.app',
     'https://mingchang-production.up.railway.app',
 ])
 
