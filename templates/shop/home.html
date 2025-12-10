@@ -61,7 +61,9 @@
                 {% if product.primary_image %}
                 <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="{{ product.primary_image.alt_text_zh|default:product.name_zh }}" style='background-image: url("{{ product.primary_image.medium.url }}");'></div>
                 {% else %}
-                <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg" data-alt="{{ product.name_zh }}" style='background-image: url("{% static 'images/placeholders/default-product.jpg' %}");'></div>
+                <div class="w-full aspect-square bg-gray-200 rounded-lg flex items-center justify-center">
+                    <span class="text-gray-400">No Image</span>
+                </div>
                 {% endif %}
                 <div>
                     <p class="text-text-light dark:text-text-dark text-base font-medium leading-normal">{{ product|get_translated_field:"name" }}</p>
