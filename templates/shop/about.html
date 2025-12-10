@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static shop_tags %}
 
-{% block title %}關於我們 About Us - 明昌肉鋪 MingChang Meat Shop{% endblock %}
+{% block title %}關於我們 About Us - 花蓮伴手禮糕餅店 Hualien Souvenir Pastry Shop{% endblock %}
 
 {% block content %}
 <div class="container mx-auto px-4 py-8">
@@ -12,10 +12,10 @@
             {{ company_info|get_translated_field:"name" }}
         </h1>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-            花蓮在地三十多年的老字號肉舖，堅持提供新鮮、優質的肉品
+            花蓮在地精選伴手禮，傳承傳統工藝的糕餅美味
         </p>
         <p class="text-lg text-gray-500 max-w-3xl mx-auto">
-            Local Hualien meat shop with over 30 years of history, committed to providing fresh, high-quality meat products
+            Local Hualien souvenir pastries, crafted with traditional techniques and authentic flavors
         </p>
     </section>
 
@@ -44,7 +44,7 @@
         <div class="flex items-center justify-center">
             {% if company_info.hero_image %}
             <img src="{{ company_info.hero_image.url }}" 
-                 alt="明昌肉鋪 MingChang Meat Shop"
+                 alt="花蓮伴手禮糕餅店 Hualien Souvenir Pastry Shop"
                  class="rounded-lg shadow-lg max-w-full h-auto">
             {% else %}
             <div class="bg-gray-200 rounded-lg shadow-lg w-full h-64 flex items-center justify-center">
