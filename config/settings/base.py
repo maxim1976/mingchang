@@ -1,5 +1,5 @@
 """
-Django settings for shop_mingchang project.
+Django settings for demoshop project.
 Base settings shared across all environments.
 """
 
@@ -143,7 +143,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Email configuration (to be overridden in environment-specific settings)
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-DEFAULT_FROM_EMAIL = "noreply@mingchang-meat.com"
+DEFAULT_FROM_EMAIL = "noreply@demoshop.com"
 
 # Google Maps API Key
 GOOGLE_MAPS_API_KEY = env('GOOGLE_MAPS_API_KEY', default='')
