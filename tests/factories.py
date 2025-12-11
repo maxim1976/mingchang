@@ -67,21 +67,21 @@ class CompanyInfoFactory(DjangoModelFactory):
     class Meta:
         model = 'shop.CompanyInfo'
     
-    name_zh = "明昌肉鋪"
-    name_en = "MingChang Meat Shop"
+    name_zh = "花蓮糕餅店"
+    name_en = "Hualien Pastry Shop"
     about_zh = factory.Faker('text', max_nb_chars=1000, locale='zh_TW')
     about_en = factory.Faker('text', max_nb_chars=1000)
-    address_zh = "花蓮市中正路123號"
-    address_en = "No. 123, Zhongzheng Rd, Hualien City"
-    phone = "03-1234567"
-    email = "info@mingchang-meat.com"
+    address_zh = "花蓮市糕餅街123號"
+    address_en = "No. 123, Bakery St, Hualien City"
+    phone = "03-8123456"
+    email = "info@hualien-pastry.com"
     latitude = Decimal("23.9871")
     longitude = Decimal("121.6015")
-    business_hours_zh = "週一至週六 08:00-18:00"
-    business_hours_en = "Mon-Sat 08:00-18:00"
-    line_id = "@mingchang"
+    business_hours_zh = "每日營業 09:00-21:00"
+    business_hours_en = "Open Daily 09:00-21:00"
+    line_id = "@hualien-pastry"
     whatsapp = "+886912345678"
-    facebook_url = "https://facebook.com/mingchang"
+    facebook_url = "https://facebook.com/hualien-pastry-shop"
 
 
 class ContactInquiryFactory(DjangoModelFactory):
